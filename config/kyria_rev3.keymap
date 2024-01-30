@@ -18,6 +18,22 @@
  */
 
 / {
+    macros {
+        quick_up: quick_up {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp UP_ARROW &kp UP_ARROW &kp UP_ARROW>;
+            label = "QUICK_UP";
+        };
+
+        quick_down: quick_down {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp DOWN_ARROW &kp DOWN_ARROW &kp DOWN>;
+            label = "QUICK_DOWN";
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -29,14 +45,14 @@
             //                     | GUI  | DEL  | RET  |  SPACE  |   ESC   |  |   RET   |  SPACE  | TAB  | BSPC  | R-ALT |
 
             bindings = <
-&kp LEFT_ALT    &kp Q  &kp W  &kp E         &kp R      &kp T                                                   &kp Y          &kp U      &kp I         &kp O    &kp P     &kp LEFT_ALT
-&kp LEFT_SHIFT  &kp A  &kp S  &kp D         &kp F      &kp G                                                   &kp H          &kp J      &kp K         &kp L    &kp SEMI  &kp RIGHT_SHIFT
-&kp GRAVE       &kp Z  &kp X  &kp C         &kp V      &kp B      &none      &tog 1   &caps_word  &none        &kp N          &kp M      &kp COMMA     &kp DOT  &kp FSLH  &kp BACKSLASH
-                              &kp LEFT_GUI  &kp RCTRL  &kp SPACE  &lt 1 TAB  &kp ESC  &kp ESCAPE  &lt 1 ENTER  &kp BACKSPACE  &kp LCTRL  &kp LEFT_GUI
+&kp LEFT_ALT    &kp Q  &kp W  &kp E       &kp R      &kp T                                                    &kp Y        &kp U          &kp I       &kp O    &kp P     &kp LEFT_ALT
+&kp LEFT_SHIFT  &kp A  &kp S  &kp D       &kp F      &kp G                                                    &kp H        &kp J          &kp K       &kp L    &kp SEMI  &kp RIGHT_SHIFT
+&kp SQT         &kp Z  &kp X  &kp C       &kp V      &kp B      &none      &tog 1    &caps_word    &none      &kp N        &kp M          &kp COMMA   &kp DOT  &kp FSLH  &kp BACKSLASH
+                              &kp ESCAPE  &kp SPACE  &lt 1 TAB  &kp LCTRL  &kp LGUI  &kp LEFT_GUI  &kp LCTRL  &lt 1 ENTER  &kp BACKSPACE  &kp ESCAPE
             >;
 
             sensor-bindings =
-                <&inc_dec_kp C_VOL_UP C_VOL_DN>,
+                <&inc_dec_kp RIGHT LEFT_ARROW>,
                 <&inc_dec_kp PAGE_DOWN PG_UP>;
         };
 
@@ -48,15 +64,15 @@
             //                       |      |      |      |      |      |      |      |      |      |      |      |      |
 
             bindings = <
-&trans          &kp N1  &kp N2  &kp N3            &kp NUMBER_4       &kp N5                                        &kp NUMBER_6    &kp N7         &kp N8        &kp N9     &kp N0  &trans
-&kp LEFT_SHIFT  &trans  &trans  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &trans                                        &kp LEFT_ARROW  &kp DOWN       &kp UP_ARROW  &kp RIGHT  &trans  &kp LEFT_SHIFT
-&bt BT_NXT      &trans  &trans  &kp MINUS         &kp EQUAL          &trans  &trans  &trans  &out OUT_TOG  &trans  &kp HOME        &kp PAGE_DOWN  &kp PG_UP     &kp END    &trans  &trans
-                                &trans            &trans             &trans  &trans  &trans  &trans        &trans  &trans          &trans         &trans
+&kp LEFT_GUI  &kp N1  &kp N2  &kp N3            &kp NUMBER_4       &kp N5                                           &kp NUMBER_6    &kp N7         &kp N8        &kp N9     &kp N0  &trans
+&trans        &trans  &trans  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp GRAVE                                        &kp LEFT_ARROW  &kp DOWN       &kp UP_ARROW  &kp RIGHT  &trans  &trans
+&bt BT_NXT    &trans  &trans  &kp MINUS         &kp EQUAL          &trans     &trans  &trans  &out OUT_TOG  &trans  &kp HOME        &kp PAGE_DOWN  &kp PG_UP     &kp END    &trans  &trans
+                              &trans            &trans             &trans     &trans  &trans  &trans        &trans  &trans          &trans         &trans
             >;
 
             sensor-bindings =
-                <&inc_dec_kp DOWN UP_ARROW>,
-                <&inc_dec_kp LC(D) RC(U)>;
+                <&inc_dec_kp RIGHT LEFT>,
+                <&inc_dec_kp LC(DOWN_ARROW) RC(UP_ARROW)>;
         };
     };
 };
