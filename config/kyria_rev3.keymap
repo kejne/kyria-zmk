@@ -16,6 +16,12 @@
 };
  */
 
+&mt {
+    flavor = "balanced";
+    tapping-term-ms = <300>;
+    quick-tap-ms = <200>;
+};
+
 / {
     macros {
         quick_up: quick_up {
@@ -33,6 +39,19 @@
         };
     };
 
+    behaviors {
+        slow_mt: slow_mt {
+            compatible = "zmk,behavior-hold-tap";
+            label = "SLOW_MT";
+            bindings = <&kp>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <500>;
+            flavor = "tap-preferred";
+            quick-tap-ms = <200>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -44,14 +63,14 @@
             //                     | GUI  | DEL  | RET  |  SPACE  |   ESC   |  |   RET   |  SPACE  | TAB  | BSPC  | R-ALT |
 
             bindings = <
-&kp LEFT_ALT    &kp Q  &kp W  &kp E       &kp R      &kp T                                                    &kp Y        &kp U          &kp I       &kp O    &kp P     &mt LEFT_ALT LEFT_BRACKET
-&kp LEFT_SHIFT  &kp A  &kp S  &kp D       &kp F      &kp G                                                    &kp H        &kp J          &kp K       &kp L    &kp SEMI  &mt LEFT_SHIFT SQT
-&kp SQT         &kp Z  &kp X  &kp C       &kp V      &kp B      &none      &tog 1    &caps_word    &none      &kp N        &kp M          &kp COMMA   &kp DOT  &kp FSLH  &kp BACKSLASH
-                              &kp ESCAPE  &kp SPACE  &lt 1 TAB  &kp LCTRL  &kp LGUI  &kp LEFT_GUI  &kp LCTRL  &lt 1 ENTER  &kp BACKSPACE  &kp ESCAPE
+&slow_mt LG(N4) LG(N1)  &kp Q                &kp W           &kp E        &kp R             &kp T                                                    &kp Y        &kp U             &kp I        &kp O           &kp P                        &mt LEFT_ALT LEFT_BRACKET
+&slow_mt LG(N5) LG(N2)  &slow_mt LEFT_ALT A  &mt LEFT_GUI S  &mt LCTRL D  &mt LEFT_SHIFT F  &kp G                                                    &kp H        &mt LEFT_SHIFT J  &mt LCTRL K  &mt LEFT_GUI L  &slow_mt LEFT_ALT SEMICOLON  &mt LEFT_SHIFT SQT
+&slow_mt LG(N6) LG(N3)  &kp Z                &kp X           &kp C        &kp V             &kp B      &none      &tog 1      &bt BT_NXT  &none      &kp N        &kp M             &kp COMMA    &kp DOT         &kp FSLH                     &kp BACKSLASH
+                                                             &caps_word   &kp SPACE         &lt 1 TAB  &kp LCTRL  &kp ESCAPE  &kp ESCAPE  &kp LCTRL  &lt 1 ENTER  &kp BACKSPACE     &caps_word
             >;
 
             sensor-bindings =
-                <&inc_dec_kp RIGHT LEFT_ARROW>,
+                <&inc_dec_kp LG(LA(PERIOD)) LG(LA(COMMA))>,
                 <&inc_dec_kp PAGE_DOWN PG_UP>;
         };
 
@@ -63,10 +82,10 @@
             //                       |      |      |      |      |      |      |      |      |      |      |      |      |
 
             bindings = <
-&trans        &kp N1  &kp N2  &kp N3            &kp NUMBER_4       &kp N5                                         &kp NUMBER_6    &kp N7         &kp N8        &kp N9     &kp N0             &kp RA(LEFT_BRACKET)
-&trans        &trans  &trans  &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp GRAVE                                      &kp LEFT_ARROW  &kp DOWN       &kp UP_ARROW  &kp RIGHT  &kp RA(SEMICOLON)  &kp RA(SQT)
-&kp LEFT_GUI  &trans  &trans  &kp MINUS         &kp EQUAL          &trans     &trans  &trans  &bt BT_NXT  &trans  &kp HOME        &kp PAGE_DOWN  &kp PG_UP     &kp END    &trans             &kp LEFT_GUI
-                              &trans            &trans             &trans     &trans  &trans  &trans      &trans  &trans          &trans         &trans
+&trans  &kp N1  &kp N2                 &kp N3                  &kp NUMBER_4                  &kp N5                                             &kp NUMBER_6    &kp N7               &kp N8        &kp N9              &kp N0             &kp RA(LEFT_BRACKET)
+&trans  &trans  &slow_mt LEFT_GUI SQT  &mt LCTRL LEFT_BRACKET  &mt LEFT_SHIFT RIGHT_BRACKET  &kp GRAVE                                          &kp LEFT_ARROW  &mt LEFT_SHIFT DOWN  &mt LCTRL UP  &mt LEFT_GUI RIGHT  &kp RA(SEMICOLON)  &kp RA(SQT)
+&trans  &trans  &trans                 &kp MINUS               &kp EQUAL                     &kp BACKSLASH  &trans  &trans  &bt BT_NXT  &trans  &kp HOME        &kp PAGE_DOWN        &kp PG_UP     &kp END             &trans             &bt BT_NXT
+                                       &trans                  &trans                        &trans         &trans  &trans  &trans      &trans  &trans          &trans               &trans
             >;
 
             sensor-bindings =
