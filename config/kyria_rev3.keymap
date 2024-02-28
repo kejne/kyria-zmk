@@ -36,6 +36,34 @@
             bindings = <&kp DOWN_ARROW &kp DOWN_ARROW &kp DOWN>;
             label = "QUICK_DOWN";
         };
+
+        window_horizontal_small: window_horizontal_small {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(W) &kp PLUS>;
+            label = "WINDOW_HORIZONTAL_SMALL";
+        };
+
+        window_horizontal_big: window_horizontal_big {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(W) &kp MINUS>;
+            label = "WINDOW_HORIZONTAL_BIG";
+        };
+
+        window_vert_small: window_vert_small {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(W) &kp LESS_THAN>;
+            label = "WINDOW_VERT_SMALL";
+        };
+
+        window_vert_big: window_vert_big {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LC(W) &kp GREATER_THAN>;
+            label = "WINDOW_VERT_BIG";
+        };
     };
 
     behaviors {
@@ -48,6 +76,20 @@
             tapping-term-ms = <400>;
             flavor = "tap-preferred";
             quick-tap-ms = <200>;
+        };
+
+        window_heigh_encoder: window_heigh_encoder {
+            compatible = "zmk,behavior-sensor-rotate";
+            label = "WINDOW_HEIGH_ENCODER";
+            #sensor-binding-cells = <0>;
+            bindings = <&window_horizontal_big>, <&window_horizontal_small>;
+        };
+
+        window_vert_encoder: window_vert_encoder {
+            compatible = "zmk,behavior-sensor-rotate";
+            label = "WINDOW_VERT_ENCODER";
+            #sensor-binding-cells = <0>;
+            bindings = <&window_vert_big>, <&window_vert_small>;
         };
     };
 
@@ -69,7 +111,7 @@
             >;
 
             sensor-bindings =
-                <&inc_dec_kp LS(LC(EQUAL)) LC(LS(MINUS))>,
+                <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>,
                 <&inc_dec_kp PAGE_DOWN PG_UP>;
         };
 
@@ -87,9 +129,7 @@
                                        &trans                  &trans                        &trans         &trans  &trans  &trans      &trans  &trans          &trans               &trans
             >;
 
-            sensor-bindings =
-                <&inc_dec_kp RIGHT LEFT>,
-                <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>;
+            sensor-bindings = <&window_vert_encoder>, <&window_heigh_encoder>;
         };
     };
 };
