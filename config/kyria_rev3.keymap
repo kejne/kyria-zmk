@@ -133,7 +133,7 @@
 
             sensor-bindings =
                 <&inc_dec_kp C_VOLUME_UP C_VOLUME_DOWN>,
-                <&inc_dec_kp PAGE_DOWN PG_UP>;
+                <&inc_dec_kp C_BRI_DEC C_BRI_INC>;
         };
 
         number_layer {
